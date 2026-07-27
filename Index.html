@@ -1,0 +1,404 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { 
+  Menu, X, Github, Linkedin, Mail, ExternalLink, 
+  Code2, Monitor, Smartphone, ChevronRight, Download
+} from 'lucide-react';
+
+// --- Reusable Intersection Observer Component for Scroll Animations ---
+const FadeInSection = ({ children, delay = '0ms' }) => {
+  const [isVisible, setVisible] = useState(false);
+  const domRef = useRef();
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    if (domRef.current) observer.observe(domRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={domRef}
+      className={`transition-all duration-1000 ease-out transform ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+      }`}
+      style={{ transitionDelay: delay }}
+    >
+      {children}
+    </div>
+  );
+};
+
+// --- Typing Animation Component ---
+const Typewriter = ({ words }) => {
+  const [index, setIndex] = useState(0);
+  const [subIndex, setSubIndex] = useState(0);
+  const [blink, setBlink] = useState(true);
+  const [reverse, setReverse] = useState(false);
+
+  // Blinking cursor effect
+  useEffect(() => {
+    const timeout2 = setTimeout(() => setBlink((prev) => !prev), 500);
+    return () => clearTimeout(timeout2);
+  }, [blink]);
+
+  // Typing effect
+  useEffect(() => {
+    if (index === words.length) setIndex(0);
+
+    if (subIndex === words[index].length + 1 && !reverse) {
+      setTimeout(() => setReverse(true), 2000);
+      return;
+    }
+
+    if (subIndex === 0 && reverse) {
+      setReverse(false);
+      setIndex((prev) => (prev + 1) % words.length);
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      setSubIndex((prev) => prev + (reverse ? -1 : 1));
+    }, Math.max(reverse ? 50 : 100, parseInt(Math.random() * 100)));
+
+    return () => clearTimeout(timeout);
+  }, [subIndex, index, reverse, words]);
+
+  return (
+    <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
+      {`${words[index].substring(0, subIndex)}${blink ? '|' : ' '}`}
+    </span>
+  );
+};
+
+export default function App() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Handle scroll for sticky navbar styling
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const navLinks = [
+    { name: 'About', href: '#about' },
+    { name: 'Skills', href: '#skills' },
+    { name: 'Projects', href: '#projects' },
+    { name: 'Contact', href: '#contact' },
+  ];
+
+  const scrollToSection = (e, href) => {
+    e.preventDefault();
+    setIsMobileMenuOpen(false);
+    const element = document.querySelector(href);
+    if (element) {
+      const top = element.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-950 text-slate-50 font-sans selection:bg-blue-500/30">
+      
+      {/* Navigation */}
+      <nav className={`fixed w-full z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-slate-900/80 backdrop-blur-md shadow-lg py-4' : 'bg-transparent py-6'
+      }`}>
+        <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+          <a href="#" className="text-2xl font-bold tracking-tighter">
+            Amit<span className="text-blue-500">.</span>
+          </a>
+
+          {/* Desktop Nav */}
+          <div className="hidden md:flex gap-8 items-center">
+            {navLinks.map((link) => (
+              <a 
+                key={link.name} 
+                href={link.href}
+                onClick={(e) => scrollToSection(e, link.href)}
+                className="text-sm font-medium text-slate-300 hover:text-white transition-colors"
+              >
+                {link.name}
+              </a>
+            ))}
+            <a 
+              href="#contact"
+              onClick={(e) => scrollToSection(e, '#contact')}
+              className="px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium transition-all shadow-[0_0_15px_rgba(37,99,235,0.3)] hover:shadow-[0_0_25px_rgba(37,99,235,0.5)]"
+            >
+              Let's Talk
+            </a>
+          </div>
+
+          {/* Mobile Menu Toggle */}
+          <button 
+            className="md:hidden text-slate-300 hover:text-white"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </div>
+
+        {/* Mobile Nav */}
+        <div className={`md:hidden absolute top-full left-0 w-full bg-slate-900/95 backdrop-blur-xl border-b border-slate-800 transition-all duration-300 overflow-hidden ${
+          isMobileMenuOpen ? 'max-h-96 py-4' : 'max-h-0'
+        }`}>
+          <div className="flex flex-col px-6 gap-4">
+            {navLinks.map((link) => (
+              <a 
+                key={link.name} 
+                href={link.href}
+                onClick={(e) => scrollToSection(e, link.href)}
+                className="text-lg font-medium text-slate-300 hover:text-white py-2"
+              >
+                {link.name}
+              </a>
+            ))}
+          </div>
+        </div>
+      </nav>
+
+      <main>
+        {/* Hero Section */}
+        <section id="home" className="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden">
+          {/* Abstract Background Blurs */}
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+
+          <div className="max-w-4xl mx-auto text-center z-10">
+            <FadeInSection>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/50 border border-slate-700 text-sm font-medium text-slate-300 mb-8">
+                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                Available for new opportunities
+              </div>
+            </FadeInSection>
+            
+            <FadeInSection delay="100ms">
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6">
+                Hi, I'm <br className="md:hidden"/>
+                <span className="text-white">Amit Kumar</span>
+              </h1>
+            </FadeInSection>
+
+            <FadeInSection delay="200ms">
+              <h2 className="text-2xl md:text-4xl font-semibold text-slate-400 mb-8 h-12">
+                I build <Typewriter words={['interactive web apps.', 'modern user interfaces.', 'scalable backends.']} />
+              </h2>
+            </FadeInSection>
+
+            <FadeInSection delay="300ms">
+              <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+                A passionate software developer specializing in building exceptional digital experiences. 
+                Currently focused on creating accessible, human-centered products.
+              </p>
+            </FadeInSection>
+
+            <FadeInSection delay="400ms">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a 
+                  href="#projects" 
+                  onClick={(e) => scrollToSection(e, '#projects')}
+                  className="w-full sm:w-auto px-8 py-4 rounded-full bg-white text-slate-950 font-bold hover:bg-slate-200 transition-colors flex items-center justify-center gap-2"
+                >
+                  View My Work <ChevronRight size={20} />
+                </a>
+                <a 
+                  href="#" 
+                  className="w-full sm:w-auto px-8 py-4 rounded-full bg-slate-800 text-white font-bold hover:bg-slate-700 transition-colors border border-slate-700 flex items-center justify-center gap-2"
+                >
+                  <Download size={20} /> Resume
+                </a>
+              </div>
+            </FadeInSection>
+          </div>
+        </section>
+
+        {/* About / Skills Section */}
+        <section id="about" className="py-24 px-6 bg-slate-900/50 relative">
+          <div className="max-w-6xl mx-auto">
+            <FadeInSection>
+              <h2 className="text-3xl md:text-4xl font-bold mb-16 flex items-center gap-4">
+                <span className="w-12 h-[2px] bg-blue-500"></span>
+                About Me
+              </h2>
+            </FadeInSection>
+
+            <div className="grid md:grid-cols-2 gap-16 items-center">
+              <FadeInSection delay="100ms">
+                <div className="space-y-6 text-lg text-slate-300 leading-relaxed">
+                  <p>
+                    Hello! My name is <strong>Amit Kumar</strong> and I enjoy creating things that live on the internet. 
+                    My interest in web development started back in 2018 when I decided to try editing custom Tumblr themes — turns out hacking together HTML & CSS taught me a lot about design and structure!
+                  </p>
+                  <p>
+                    Fast-forward to today, and I've had the privilege of working at an advertising agency, a start-up, 
+                    and a huge corporation. My main focus these days is building accessible, inclusive products and digital 
+                    experiences for a variety of clients.
+                  </p>
+                </div>
+              </FadeInSection>
+
+              <div id="skills" className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {[
+                  { icon: <Code2 className="text-blue-400" size={32}/>, title: 'Frontend', desc: 'React, Vue, Tailwind CSS' },
+                  { icon: <Monitor className="text-cyan-400" size={32}/>, title: 'Backend', desc: 'Node.js, Express, Python' },
+                  { icon: <Smartphone className="text-purple-400" size={32}/>, title: 'Mobile', desc: 'React Native, Flutter' }
+                ].map((skill, idx) => (
+                  <FadeInSection key={idx} delay={`${(idx + 1) * 100}ms`}>
+                    <div className="p-6 rounded-2xl bg-slate-800/50 border border-slate-700/50 hover:bg-slate-800 transition-colors">
+                      <div className="mb-4 bg-slate-900 w-16 h-16 rounded-xl flex items-center justify-center">
+                        {skill.icon}
+                      </div>
+                      <h3 className="text-xl font-semibold mb-2">{skill.title}</h3>
+                      <p className="text-sm text-slate-400">{skill.desc}</p>
+                    </div>
+                  </FadeInSection>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Projects Section */}
+        <section id="projects" className="py-32 px-6">
+          <div className="max-w-6xl mx-auto">
+            <FadeInSection>
+              <h2 className="text-3xl md:text-4xl font-bold mb-16 flex items-center gap-4 justify-end">
+                Some Things I've Built
+                <span className="w-12 h-[2px] bg-blue-500"></span>
+              </h2>
+            </FadeInSection>
+
+            <div className="space-y-32">
+              {[
+                {
+                  title: 'E-Commerce Platform',
+                  desc: 'A full-featured e-commerce platform built with React, Node.js, and MongoDB. Includes user authentication, payment processing with Stripe, and an intuitive admin dashboard.',
+                  tech: ['React', 'Node.js', 'MongoDB', 'Stripe'],
+                  reverse: false,
+                  color: 'from-blue-600 to-indigo-600'
+                },
+                {
+                  title: 'AI Content Generator',
+                  desc: 'A SaaS application that uses OpenAI APIs to generate blog posts, social media content, and ad copy. Features a rich text editor and project organization.',
+                  tech: ['Next.js', 'Tailwind', 'OpenAI API', 'Supabase'],
+                  reverse: true,
+                  color: 'from-emerald-600 to-teal-600'
+                },
+                {
+                  title: 'Real-time Task Manager',
+                  desc: 'A collaborative project management tool featuring real-time updates, drag-and-drop kanban boards, and team chat functionality.',
+                  tech: ['Vue 3', 'Firebase', 'Tailwind CSS'],
+                  reverse: false,
+                  color: 'from-orange-600 to-red-600'
+                }
+              ].map((project, idx) => (
+                <FadeInSection key={idx}>
+                  <div className={`relative grid md:grid-cols-2 gap-8 items-center ${project.reverse ? '' : ''}`}>
+                    
+                    {/* Project Image Placeholder */}
+                    <div className={`relative aspect-video rounded-2xl overflow-hidden shadow-2xl group ${project.reverse ? 'md:order-2' : 'md:order-1'}`}>
+                      <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-80 group-hover:opacity-100 transition-opacity duration-500`}></div>
+                      {/* Decorative abstract elements inside image placeholder */}
+                      <div className="absolute inset-0 flex items-center justify-center mix-blend-overlay opacity-30">
+                         <div className="w-3/4 h-3/4 border-4 border-white rounded-full blur-sm group-hover:scale-110 transition-transform duration-700"></div>
+                         <div className="absolute w-1/2 h-1/2 border-2 border-white rounded-lg rotate-12 group-hover:rotate-45 transition-transform duration-700"></div>
+                      </div>
+                      <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-colors duration-500"></div>
+                    </div>
+
+                    {/* Project Info */}
+                    <div className={`relative z-10 ${project.reverse ? 'md:order-1 md:text-right' : 'md:order-2 text-left'}`}>
+                      <p className="text-blue-400 font-mono text-sm mb-2">Featured Project</p>
+                      <h3 className="text-2xl md:text-3xl font-bold mb-6 text-white">{project.title}</h3>
+                      
+                      <div className="p-6 bg-slate-800 rounded-xl shadow-xl mb-6 text-slate-300 backdrop-blur-sm border border-slate-700">
+                        {project.desc}
+                      </div>
+                      
+                      <ul className={`flex flex-wrap gap-4 mb-8 text-sm font-mono text-slate-400 ${project.reverse ? 'md:justify-end' : ''}`}>
+                        {project.tech.map(t => <li key={t}>{t}</li>)}
+                      </ul>
+                      
+                      <div className={`flex items-center gap-6 ${project.reverse ? 'md:justify-end' : ''}`}>
+                        <a href="#" className="text-slate-300 hover:text-blue-400 transition-colors">
+                          <Github size={24} />
+                        </a>
+                        <a href="#" className="text-slate-300 hover:text-blue-400 transition-colors">
+                          <ExternalLink size={24} />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </FadeInSection>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Contact Section */}
+        <section id="contact" className="py-32 px-6 text-center max-w-3xl mx-auto">
+          <FadeInSection>
+            <p className="text-blue-400 font-mono mb-4">04. What's Next?</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-8">Get In Touch</h2>
+            <p className="text-lg text-slate-400 mb-12">
+              Although I'm not currently looking for any new opportunities, my inbox is always open. 
+              Whether you have a question or just want to say hi, I'll try my best to get back to you!
+            </p>
+            <a 
+              href="mailto:hello@amitkumar.com" 
+              className="inline-block px-8 py-4 rounded-full border border-blue-500 text-blue-400 font-medium hover:bg-blue-500 hover:text-white transition-all duration-300 shadow-[0_0_15px_rgba(37,99,235,0.1)] hover:shadow-[0_0_30px_rgba(37,99,235,0.4)]"
+            >
+              Say Hello
+            </a>
+          </FadeInSection>
+        </section>
+      </main>
+
+      {/* Footer */}
+      <footer className="py-8 text-center text-slate-400 text-sm border-t border-slate-800 mt-20">
+        <div className="flex justify-center gap-6 mb-4 md:hidden">
+          <a href="#" className="hover:text-blue-400 transition-colors"><Github size={20}/></a>
+          <a href="#" className="hover:text-blue-400 transition-colors"><Linkedin size={20}/></a>
+          <a href="#" className="hover:text-blue-400 transition-colors"><Mail size={20}/></a>
+        </div>
+        <p>Designed & Built by Amit Kumar</p>
+        <p className="mt-2 font-mono text-xs opacity-50">&copy; {new Date().getFullYear()} All rights reserved.</p>
+      </footer>
+
+      {/* Fixed Social Links (Desktop only) */}
+      <div className="hidden md:flex flex-col items-center fixed bottom-0 left-12 gap-6 after:content-[''] after:w-[1px] after:h-24 after:bg-slate-500">
+        <a href="#" className="text-slate-400 hover:text-blue-400 hover:-translate-y-1 transition-all">
+          <Github size={22} />
+        </a>
+        <a href="#" className="text-slate-400 hover:text-blue-400 hover:-translate-y-1 transition-all">
+          <Linkedin size={22} />
+        </a>
+      </div>
+
+      {/* Fixed Email Link (Desktop only) */}
+      <div className="hidden md:flex flex-col items-center fixed bottom-0 right-12 gap-6 after:content-[''] after:w-[1px] after:h-24 after:bg-slate-500">
+        <a 
+          href="mailto:hello@amitkumar.com" 
+          className="text-slate-400 hover:text-blue-400 hover:-translate-y-1 transition-all tracking-widest text-sm font-mono"
+          style={{ writingMode: 'vertical-rl' }}
+        >
+          hello@amitkumar.com
+        </a>
+      </div>
+
+    </div>
+  );
+}
+
