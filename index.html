@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amit Kumar | Software Developer</title>
+    <title>Amit Kumar | Video Editor & Visual Storyteller</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -69,30 +69,49 @@
 
         /* Gradient Text Helper */
         .text-gradient {
-            background: linear-gradient(to right, #60a5fa, #67e8f9);
+            background: linear-gradient(to right, #f43f5e, #f97316);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+
+        /* Video Container to ensure perfect 16:9 aspect ratio */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 1rem;
+            background: #000;
+        }
+        .video-wrapper iframe,
+        .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-50 font-sans antialiased selection:bg-blue-500/30 overflow-x-hidden">
+<body class="bg-slate-950 text-slate-50 font-sans antialiased selection:bg-rose-500/30 overflow-x-hidden">
 
     <!-- Navigation -->
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-transparent py-6">
         <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
             <a href="#" class="text-2xl font-bold tracking-tighter z-50 relative">
-                Amit<span class="text-blue-500">.</span>
+                Amit<span class="text-rose-500">.</span>
             </a>
 
             <!-- Desktop Nav -->
             <div class="hidden md:flex gap-8 items-center">
                 <a href="#about" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">About</a>
                 <a href="#skills" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Skills</a>
-                <a href="#projects" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Projects</a>
+                <a href="#portfolio" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Portfolio</a>
                 <a href="#contact" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Contact</a>
-                <a href="#contact" class="px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium transition-all shadow-[0_0_15px_rgba(37,99,235,0.3)] hover:shadow-[0_0_25px_rgba(37,99,235,0.5)]">
-                    Let's Talk
+                <a href="#contact" class="px-5 py-2.5 rounded-full bg-rose-600 hover:bg-rose-500 text-white text-sm font-medium transition-all shadow-[0_0_15px_rgba(225,29,72,0.3)] hover:shadow-[0_0_25px_rgba(225,29,72,0.5)]">
+                    Book Me
                 </a>
             </div>
 
@@ -107,7 +126,7 @@
             <div class="flex flex-col px-6 gap-4 pb-6 pt-2">
                 <a href="#about" class="mobile-link text-lg font-medium text-slate-300 hover:text-white py-2 border-b border-slate-800">About</a>
                 <a href="#skills" class="mobile-link text-lg font-medium text-slate-300 hover:text-white py-2 border-b border-slate-800">Skills</a>
-                <a href="#projects" class="mobile-link text-lg font-medium text-slate-300 hover:text-white py-2 border-b border-slate-800">Projects</a>
+                <a href="#portfolio" class="mobile-link text-lg font-medium text-slate-300 hover:text-white py-2 border-b border-slate-800">Portfolio</a>
                 <a href="#contact" class="mobile-link text-lg font-medium text-slate-300 hover:text-white py-2 border-b border-slate-800">Contact</a>
             </div>
         </div>
@@ -116,14 +135,14 @@
     <main>
         <!-- Hero Section -->
         <section id="home" class="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden">
-            <!-- Abstract Background Blurs -->
-            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-[120px] pointer-events-none"></div>
-            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+            <!-- Cinematic Background Lighting -->
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-rose-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-orange-600/20 rounded-full blur-[120px] pointer-events-none"></div>
 
             <div class="max-w-4xl mx-auto text-center z-10 w-full">
                 <div class="fade-in-section inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/50 border border-slate-700 text-sm font-medium text-slate-300 mb-8">
-                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                    Available for new opportunities
+                    <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+                    Accepting freelance projects
                 </div>
                 
                 <h1 class="fade-in-section delay-100 text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6">
@@ -132,20 +151,16 @@
                 </h1>
 
                 <h2 class="fade-in-section delay-200 text-2xl md:text-4xl font-semibold text-slate-400 mb-8 h-12 md:h-14">
-                    I build <span id="typewriter" class="text-gradient"></span><span class="typing-cursor text-cyan-300"></span>
+                    I edit <span id="typewriter" class="text-gradient"></span><span class="typing-cursor text-orange-300"></span>
                 </h2>
 
                 <p class="fade-in-section delay-300 text-lg text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-                    A passionate software developer specializing in building exceptional digital experiences. 
-                    Currently focused on creating accessible, human-centered products.
+                    A creative video editor specializing in narrative storytelling, dynamic motion graphics, and professional color grading. Transforming raw footage into captivating visual experiences.
                 </p>
 
                 <div class="fade-in-section delay-400 flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <a href="#projects" class="w-full sm:w-auto px-8 py-4 rounded-full bg-white text-slate-950 font-bold hover:bg-slate-200 transition-colors flex items-center justify-center gap-2">
-                        View My Work <i class="fa-solid fa-chevron-right"></i>
-                    </a>
-                    <a href="#" class="w-full sm:w-auto px-8 py-4 rounded-full bg-slate-800 text-white font-bold hover:bg-slate-700 transition-colors border border-slate-700 flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-download"></i> Resume
+                    <a href="#portfolio" class="w-full sm:w-auto px-8 py-4 rounded-full bg-white text-slate-950 font-bold hover:bg-slate-200 transition-colors flex items-center justify-center gap-2">
+                        Watch My Reel <i class="fa-solid fa-play"></i>
                     </a>
                 </div>
             </div>
@@ -155,137 +170,147 @@
         <section id="about" class="py-24 px-6 bg-slate-900/50 relative">
             <div class="max-w-6xl mx-auto">
                 <h2 class="fade-in-section text-3xl md:text-4xl font-bold mb-16 flex items-center gap-4">
-                    <span class="w-12 h-[2px] bg-blue-500"></span>
-                    About Me
+                    <span class="w-12 h-[2px] bg-rose-500"></span>
+                    Behind The Timeline
                 </h2>
 
                 <div class="grid md:grid-cols-2 gap-16 items-center">
                     <div class="fade-in-section delay-100 space-y-6 text-lg text-slate-300 leading-relaxed">
                         <p>
-                            Hello! My name is <strong>Amit Kumar</strong> and I enjoy creating things that live on the internet. 
-                            My interest in web development started back in 2018 when I decided to try editing custom themes — turns out hacking together HTML & CSS taught me a lot about design and structure!
+                            Hello! I'm <strong>Amit Kumar</strong>, a video editor with a sharp eye for pacing and a passion for visual storytelling. My journey started by cutting together short travel montages, which quickly evolved into a full-time obsession with the craft of editing.
                         </p>
                         <p>
-                            Fast-forward to today, and I've had the privilege of working at an advertising agency, a start-up, 
-                            and a huge corporation. My main focus these days is building accessible, inclusive products and digital 
-                            experiences for a variety of clients.
+                            Whether it's a high-energy commercial, an emotional documentary, or engaging YouTube content, I focus on the rhythm of the cut and the mood of the color. I bring ideas to life using industry-standard tools, ensuring every frame serves a purpose.
                         </p>
                     </div>
 
                     <div id="skills" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <!-- Skill 1 -->
                         <div class="fade-in-section delay-200 p-6 rounded-2xl bg-slate-800/50 border border-slate-700/50 hover:bg-slate-800 transition-colors">
-                            <div class="mb-4 bg-slate-900 w-14 h-14 rounded-xl flex items-center justify-center text-blue-400 text-2xl">
-                                <i class="fa-solid fa-code"></i>
+                            <div class="mb-4 bg-slate-900 w-14 h-14 rounded-xl flex items-center justify-center text-rose-400 text-2xl">
+                                <i class="fa-solid fa-film"></i>
                             </div>
-                            <h3 class="text-xl font-semibold mb-2">Frontend</h3>
-                            <p class="text-sm text-slate-400">React, Vue, Tailwind CSS, HTML/CSS, JavaScript</p>
+                            <h3 class="text-xl font-semibold mb-2">Video Editing</h3>
+                            <p class="text-sm text-slate-400">Premiere Pro, Final Cut Pro, DaVinci Resolve</p>
                         </div>
                         <!-- Skill 2 -->
                         <div class="fade-in-section delay-300 p-6 rounded-2xl bg-slate-800/50 border border-slate-700/50 hover:bg-slate-800 transition-colors">
-                            <div class="mb-4 bg-slate-900 w-14 h-14 rounded-xl flex items-center justify-center text-cyan-400 text-2xl">
-                                <i class="fa-solid fa-desktop"></i>
+                            <div class="mb-4 bg-slate-900 w-14 h-14 rounded-xl flex items-center justify-center text-orange-400 text-2xl">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
                             </div>
-                            <h3 class="text-xl font-semibold mb-2">Backend</h3>
-                            <p class="text-sm text-slate-400">Node.js, Express, Python, MongoDB, PostgreSQL</p>
+                            <h3 class="text-xl font-semibold mb-2">Motion Graphics</h3>
+                            <p class="text-sm text-slate-400">After Effects, Text Animation, 2D Tracking</p>
                         </div>
                         <!-- Skill 3 -->
                         <div class="fade-in-section delay-400 p-6 rounded-2xl bg-slate-800/50 border border-slate-700/50 hover:bg-slate-800 transition-colors sm:col-span-2 md:col-span-1">
                             <div class="mb-4 bg-slate-900 w-14 h-14 rounded-xl flex items-center justify-center text-purple-400 text-2xl">
-                                <i class="fa-solid fa-mobile-screen"></i>
+                                <i class="fa-solid fa-palette"></i>
                             </div>
-                            <h3 class="text-xl font-semibold mb-2">Mobile App</h3>
-                            <p class="text-sm text-slate-400">React Native, Flutter, Cross-platform development</p>
+                            <h3 class="text-xl font-semibold mb-2">Color Grading</h3>
+                            <p class="text-sm text-slate-400">Color Correction, Cinematic Looks, LUTs</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Projects Section -->
-        <section id="projects" class="py-32 px-6">
-            <div class="max-w-6xl mx-auto">
-                <h2 class="fade-in-section text-3xl md:text-4xl font-bold mb-16 flex items-center gap-4 md:justify-end">
-                    <span class="md:hidden w-12 h-[2px] bg-blue-500"></span>
-                    Some Things I've Built
-                    <span class="hidden md:block w-12 h-[2px] bg-blue-500"></span>
-                </h2>
+        <!-- Portfolio Section (Where your videos go) -->
+        <section id="portfolio" class="py-32 px-6">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-20 fade-in-section">
+                    <p class="text-rose-400 font-mono mb-4">03. Selected Works</p>
+                    <h2 class="text-4xl md:text-5xl font-bold">My Edit Portfolio</h2>
+                </div>
 
-                <div class="space-y-32">
-                    <!-- Project 1 -->
-                    <div class="fade-in-section relative grid md:grid-cols-2 gap-8 items-center">
-                        <div class="relative aspect-video rounded-2xl overflow-hidden shadow-2xl group md:order-1">
-                            <div class="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-600 opacity-80 group-hover:opacity-100 transition-opacity duration-500"></div>
-                            <div class="absolute inset-0 flex items-center justify-center mix-blend-overlay opacity-30">
-                                <div class="w-3/4 h-3/4 border-4 border-white rounded-full blur-sm group-hover:scale-110 transition-transform duration-700"></div>
+                <div class="space-y-24">
+                    
+                    <!-- ========================================== -->
+                    <!-- VIDEO PROJECT 1 (YouTube/Vimeo Embed Style) -->
+                    <!-- ========================================== -->
+                    <div class="fade-in-section">
+                        <div class="bg-slate-850 p-4 md:p-6 rounded-2xl border border-slate-800 shadow-2xl">
+                            <!-- VIDEO PLAYER HERE -->
+                            <div class="video-wrapper shadow-lg mb-6">
+                                <!-- 
+                                  INSTRUCTION: Replace the "src" link below with your YouTube embed link.
+                                  To get this: Go to your YouTube video -> Share -> Embed -> Copy the src link.
+                                -->
+                                <iframe 
+                                    src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                                    title="Project 1 Video" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                                </iframe>
                             </div>
-                            <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-colors duration-500"></div>
-                        </div>
-                        
-                        <div class="relative z-10 md:order-2 text-left">
-                            <p class="text-blue-400 font-mono text-sm mb-2">Featured Project</p>
-                            <h3 class="text-2xl md:text-3xl font-bold mb-6 text-white">E-Commerce Platform</h3>
-                            <div class="p-6 bg-slate-850 rounded-xl shadow-xl mb-6 text-slate-300 border border-slate-800">
-                                A full-featured e-commerce platform built with React, Node.js, and MongoDB. Includes user authentication, payment processing with Stripe, and an intuitive admin dashboard.
-                            </div>
-                            <ul class="flex flex-wrap gap-4 mb-8 text-sm font-mono text-slate-400">
-                                <li>React</li><li>Node.js</li><li>MongoDB</li><li>Stripe</li>
-                            </ul>
-                            <div class="flex items-center gap-6">
-                                <a href="#" class="text-slate-400 hover:text-blue-400 text-xl transition-colors"><i class="fa-brands fa-github"></i></a>
-                                <a href="#" class="text-slate-400 hover:text-blue-400 text-xl transition-colors"><i class="fa-solid fa-up-right-from-square"></i></a>
+                            
+                            <!-- Video Details -->
+                            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 px-2">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white mb-2">Cinematic Travel Vlog</h3>
+                                    <p class="text-slate-400 max-w-2xl">A high-energy travel montage featuring dynamic transitions, speed ramping, and a vibrant color grade.</p>
+                                </div>
+                                <ul class="flex gap-3 text-sm font-mono text-rose-400">
+                                    <li class="bg-rose-500/10 px-3 py-1 rounded-full">Premiere Pro</li>
+                                    <li class="bg-rose-500/10 px-3 py-1 rounded-full">Color Grading</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Project 2 (Reverse) -->
-                    <div class="fade-in-section relative grid md:grid-cols-2 gap-8 items-center">
-                        <div class="relative aspect-video rounded-2xl overflow-hidden shadow-2xl group md:order-2">
-                            <div class="absolute inset-0 bg-gradient-to-br from-emerald-600 to-teal-600 opacity-80 group-hover:opacity-100 transition-opacity duration-500"></div>
-                            <div class="absolute inset-0 flex items-center justify-center mix-blend-overlay opacity-30">
-                                <div class="absolute w-1/2 h-1/2 border-2 border-white rounded-lg rotate-12 group-hover:rotate-45 transition-transform duration-700"></div>
+                    <!-- ========================================== -->
+                    <!-- VIDEO PROJECT 2 (Direct Upload / Local Video Style) -->
+                    <!-- ========================================== -->
+                    <div class="fade-in-section">
+                        <div class="bg-slate-850 p-4 md:p-6 rounded-2xl border border-slate-800 shadow-2xl">
+                            <!-- VIDEO PLAYER HERE -->
+                            <div class="video-wrapper shadow-lg mb-6">
+                                <!-- 
+                                  INSTRUCTION: If you have a video file in your github folder (e.g., inside a "videos" folder), 
+                                  use the <video> tag below. Just change the "src" to match your file name.
+                                -->
+                                <video controls poster="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1000&q=80" class="object-cover">
+                                    <source src="videos/my-second-edit.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
                             </div>
-                            <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-colors duration-500"></div>
-                        </div>
-                        
-                        <div class="relative z-10 md:order-1 md:text-right">
-                            <p class="text-blue-400 font-mono text-sm mb-2">Featured Project</p>
-                            <h3 class="text-2xl md:text-3xl font-bold mb-6 text-white">AI Content Generator</h3>
-                            <div class="p-6 bg-slate-850 rounded-xl shadow-xl mb-6 text-slate-300 border border-slate-800">
-                                A SaaS application that uses OpenAI APIs to generate blog posts, social media content, and ad copy. Features a rich text editor and project organization folders.
-                            </div>
-                            <ul class="flex flex-wrap gap-4 mb-8 text-sm font-mono text-slate-400 md:justify-end">
-                                <li>Next.js</li><li>Tailwind</li><li>OpenAI API</li><li>Supabase</li>
-                            </ul>
-                            <div class="flex items-center gap-6 md:justify-end">
-                                <a href="#" class="text-slate-400 hover:text-blue-400 text-xl transition-colors"><i class="fa-brands fa-github"></i></a>
-                                <a href="#" class="text-slate-400 hover:text-blue-400 text-xl transition-colors"><i class="fa-solid fa-up-right-from-square"></i></a>
+                            
+                            <!-- Video Details -->
+                            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 px-2">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white mb-2">Tech Brand Commercial</h3>
+                                    <p class="text-slate-400 max-w-2xl">Sleek, modern promotional video. Focused heavily on 2D motion graphics and precise audio syncing.</p>
+                                </div>
+                                <ul class="flex gap-3 text-sm font-mono text-rose-400">
+                                    <li class="bg-rose-500/10 px-3 py-1 rounded-full">After Effects</li>
+                                    <li class="bg-rose-500/10 px-3 py-1 rounded-full">Sound Design</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Project 3 -->
-                    <div class="fade-in-section relative grid md:grid-cols-2 gap-8 items-center">
-                        <div class="relative aspect-video rounded-2xl overflow-hidden shadow-2xl group md:order-1">
-                            <div class="absolute inset-0 bg-gradient-to-br from-orange-600 to-red-600 opacity-80 group-hover:opacity-100 transition-opacity duration-500"></div>
-                            <div class="absolute inset-0 flex items-center justify-center mix-blend-overlay opacity-30">
-                                <div class="w-1/2 h-1/2 border-4 border-dashed border-white rounded-full group-hover:animate-spin transition-transform duration-700"></div>
+                    <!-- ========================================== -->
+                    <!-- VIDEO PROJECT 3 -->
+                    <!-- ========================================== -->
+                    <div class="fade-in-section">
+                        <div class="bg-slate-850 p-4 md:p-6 rounded-2xl border border-slate-800 shadow-2xl">
+                            <div class="video-wrapper shadow-lg mb-6">
+                                <!-- Place another iframe or video tag here -->
+                                <iframe 
+                                    src="https://www.youtube.com/embed/tgbNymZ7vqY" 
+                                    title="Project 3 Video" 
+                                    allowfullscreen>
+                                </iframe>
                             </div>
-                            <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-colors duration-500"></div>
-                        </div>
-                        
-                        <div class="relative z-10 md:order-2 text-left">
-                            <p class="text-blue-400 font-mono text-sm mb-2">Featured Project</p>
-                            <h3 class="text-2xl md:text-3xl font-bold mb-6 text-white">Real-time Task Manager</h3>
-                            <div class="p-6 bg-slate-850 rounded-xl shadow-xl mb-6 text-slate-300 border border-slate-800">
-                                A collaborative project management tool featuring real-time updates, drag-and-drop kanban boards, role-based permissions, and team chat functionality.
-                            </div>
-                            <ul class="flex flex-wrap gap-4 mb-8 text-sm font-mono text-slate-400">
-                                <li>Vue 3</li><li>Firebase</li><li>Tailwind CSS</li><li>Pinia</li>
-                            </ul>
-                            <div class="flex items-center gap-6">
-                                <a href="#" class="text-slate-400 hover:text-blue-400 text-xl transition-colors"><i class="fa-brands fa-github"></i></a>
-                                <a href="#" class="text-slate-400 hover:text-blue-400 text-xl transition-colors"><i class="fa-solid fa-up-right-from-square"></i></a>
+                            
+                            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 px-2">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white mb-2">Music Video Edit</h3>
+                                    <p class="text-slate-400 max-w-2xl">Fast-paced, stylistic cuts tailored to the beat. Heavy use of visual effects and creative masking.</p>
+                                </div>
+                                <ul class="flex gap-3 text-sm font-mono text-rose-400">
+                                    <li class="bg-rose-500/10 px-3 py-1 rounded-full">VFX</li>
+                                    <li class="bg-rose-500/10 px-3 py-1 rounded-full">DaVinci Resolve</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -297,14 +322,13 @@
         <!-- Contact Section -->
         <section id="contact" class="py-32 px-6 text-center max-w-3xl mx-auto">
             <div class="fade-in-section">
-                <p class="text-blue-400 font-mono mb-4">04. What's Next?</p>
-                <h2 class="text-4xl md:text-5xl font-bold mb-8">Get In Touch</h2>
+                <p class="text-rose-400 font-mono mb-4">04. Let's Work Together</p>
+                <h2 class="text-4xl md:text-5xl font-bold mb-8">Ready to Edit?</h2>
                 <p class="text-lg text-slate-400 mb-12">
-                    Although I'm not currently looking for any new opportunities, my inbox is always open. 
-                    Whether you have a question or just want to say hi, I'll try my best to get back to you!
+                    Have raw footage that needs a professional touch? Looking for an editor for your next YouTube series or commercial project? Let's discuss your vision.
                 </p>
-                <a href="mailto:hello@amitkumar.com" class="inline-block px-8 py-4 rounded-full border border-blue-500 text-blue-400 font-medium hover:bg-blue-500 hover:text-white transition-all duration-300 shadow-[0_0_15px_rgba(37,99,235,0.1)] hover:shadow-[0_0_30px_rgba(37,99,235,0.4)]">
-                    Say Hello
+                <a href="mailto:hello@amitkumar.com" class="inline-block px-8 py-4 rounded-full border border-rose-500 text-rose-400 font-medium hover:bg-rose-500 hover:text-white transition-all duration-300 shadow-[0_0_15px_rgba(225,29,72,0.1)] hover:shadow-[0_0_30px_rgba(225,29,72,0.4)]">
+                    Start a Project
                 </a>
             </div>
         </section>
@@ -313,27 +337,28 @@
     <!-- Footer -->
     <footer class="py-8 text-center text-slate-400 text-sm border-t border-slate-800 mt-20">
         <div class="flex justify-center gap-6 mb-4 md:hidden">
-            <a href="#" class="text-xl hover:text-blue-400 transition-colors"><i class="fa-brands fa-github"></i></a>
-            <a href="#" class="text-xl hover:text-blue-400 transition-colors"><i class="fa-brands fa-linkedin"></i></a>
-            <a href="mailto:hello@amitkumar.com" class="text-xl hover:text-blue-400 transition-colors"><i class="fa-solid fa-envelope"></i></a>
+            <a href="#" class="text-xl hover:text-rose-400 transition-colors"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#" class="text-xl hover:text-rose-400 transition-colors"><i class="fa-brands fa-instagram"></i></a>
+            <a href="mailto:hello@amitkumar.com" class="text-xl hover:text-rose-400 transition-colors"><i class="fa-solid fa-envelope"></i></a>
         </div>
-        <p>Designed & Built by Amit Kumar</p>
+        <p>Edited & Curated by Amit Kumar</p>
         <p class="mt-2 font-mono text-xs opacity-50">&copy; <span id="year"></span> All rights reserved.</p>
     </footer>
 
     <!-- Fixed Social Links (Desktop) -->
     <div class="hidden md:flex flex-col items-center fixed bottom-0 left-12 gap-6 after:content-[''] after:w-[1px] after:h-24 after:bg-slate-500 z-40">
-        <a href="#" class="text-slate-400 hover:text-blue-400 hover:-translate-y-1 transition-all text-xl">
-            <i class="fa-brands fa-github"></i>
+        <!-- Changed to Video/Creative oriented socials -->
+        <a href="#" class="text-slate-400 hover:text-rose-400 hover:-translate-y-1 transition-all text-xl" title="YouTube">
+            <i class="fa-brands fa-youtube"></i>
         </a>
-        <a href="#" class="text-slate-400 hover:text-blue-400 hover:-translate-y-1 transition-all text-xl">
-            <i class="fa-brands fa-linkedin"></i>
+        <a href="#" class="text-slate-400 hover:text-rose-400 hover:-translate-y-1 transition-all text-xl" title="Instagram">
+            <i class="fa-brands fa-instagram"></i>
         </a>
     </div>
 
     <!-- Fixed Email Link (Desktop) -->
     <div class="hidden md:flex flex-col items-center fixed bottom-0 right-12 gap-6 after:content-[''] after:w-[1px] after:h-24 after:bg-slate-500 z-40">
-        <a href="mailto:hello@amitkumar.com" class="text-slate-400 hover:text-blue-400 hover:-translate-y-1 transition-all tracking-widest text-sm font-mono" style="writing-mode: vertical-rl;">
+        <a href="mailto:hello@amitkumar.com" class="text-slate-400 hover:text-rose-400 hover:-translate-y-1 transition-all tracking-widest text-sm font-mono" style="writing-mode: vertical-rl;">
             hello@amitkumar.com
         </a>
     </div>
@@ -394,8 +419,8 @@
             });
         });
 
-        // --- Typing Animation ---
-        const words = ['interactive web apps.', 'modern user interfaces.', 'scalable backends.'];
+        // --- Typing Animation (Updated for Video Editor) ---
+        const words = ['cinematic sequences.', 'engaging YouTube content.', 'dynamic motion graphics.'];
         const typewriterSpan = document.getElementById('typewriter');
         let wordIndex = 0;
         let charIndex = 0;
@@ -454,4 +479,5 @@
     </script>
 </body>
 </html>
+
 
